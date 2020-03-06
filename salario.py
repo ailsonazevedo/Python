@@ -4,6 +4,7 @@ aliquota = 0
 deducao = 0
 
 salarBruto = float(input("Informe seu salário bruto: "))
+dependentes = int(input("Informe o número de dependen"))
 pergPen = input("Voce possui alguma pensão alimenticia desconta diretamente da fonte? (S/N): ")
 if pergPen == 'S' or pergPen == 's':
     pensao = float(input("Entre com o valor da pensão alimentícia(R$): "))
@@ -34,10 +35,10 @@ baseCalc = salarBruto - INSS - pensao * 189.59
 if baseCalc <= 1903.98:
     aliquota = 0
     deducao = 0
-if baseCalc >= 1903.99 and salarBruto <= 2826.65:
+if baseCalc >= 1903.99 and baseCalc <= 2826.65:
     aliquota = 7.5 / 100.0
     deducao = 142.80
-if baseCalc >= 2826.66 and salarBruto <= 3751.05:
+if baseCalc >= 2826.66 and baseCalc <= 3751.05:
     aliquota = 15 / 100.0
     deducao = 354.80
 if baseCalc > 3751.06 and baseCalc <= 4664.68:
@@ -48,7 +49,7 @@ if baseCalc > 4664.68:
     deducao = 869.36
 
 IRRF = baseCalc * aliquota - deducao
-salLiq = salarBruto - (pensao + plnSaude + PAT + desconto + INSS + IRRF)
+salLiq = salarBruto - ((pensao * dependentes) + plnSaude + PAT + desconto + INSS + IRRF)
 print("Seu salário Liquído: R$ {:.2f}".format(salLiq))
 print("Valor Pago ao INSS: R$ {:.2f}".format(INSS))
 print("Valor Pago ao IRRF: R$ {:.2f}".format(IRRF))
